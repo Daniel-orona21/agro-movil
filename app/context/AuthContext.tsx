@@ -41,6 +41,7 @@ export const AuthProvider = ({children}: any) => {
                 });
             }
         }
+        
         loadToken();
     }, [])
 
