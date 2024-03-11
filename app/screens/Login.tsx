@@ -6,6 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState(''); 
+  const [apellido, setApellido] = useState(''); 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const { onLogin, onRegister } = useAuth();
@@ -18,7 +19,7 @@ const Login = () => {
   };
 
   const register = async () => {
-    const result = await onRegister!(email, password, name); 
+    const result = await onRegister!(email, password, name, apellido); 
     if (result && result.error) {
       alert(result.msg);
     } else {
@@ -36,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <ImageBackground source={require('../../assets/loginFondo.jpg')} style={styles.backgroundImage}>
+    <ImageBackground source={require('../../assets/fondo1.png')} blurRadius={20} style={styles.backgroundImage}>
    
     <View style={styles.container}>
     <Image source={require('../../assets/logo.png')} style={styles.logo}/>
@@ -46,7 +47,7 @@ const Login = () => {
           style={styles.emailInput}
           placeholder='Email'
           placeholderTextColor='rgba(255, 255, 255, 0.7)'
-          onChangeText={(text: string) => setEmail(text)}
+          onChangeText={(text: string) => setEmail(text.toLowerCase())}
           value={email}
         />
         <Text style={styles.text1}>Password</Text>
@@ -86,11 +87,18 @@ const Login = () => {
               onChangeText={(text: string) => setName(text)}
               value={name}
             />
+          <Text style={styles.txt2}>Apellido</Text>
+          <TextInput
+              style={styles.input}
+              placeholder='Apellido'
+              onChangeText={(text: string) => setApellido(text)}
+              value={apellido}
+            />
             <Text style={styles.txt2}>Email</Text>
             <TextInput
               style={styles.input}
               placeholder='Email'
-              onChangeText={(text: string) => setEmail(text)}
+              onChangeText={(text: string) => setEmail(text.toLowerCase())}
               value={email}
             />
             <Text style={styles.txt2}>Contraseña</Text>
@@ -131,8 +139,9 @@ const styles = StyleSheet.create({
     
   },
   logo: {
-    width: 270,
-    height: 270,
+    width: 170,
+    height: 230,
+    marginTop: 25,
   },
   backgroundImage: {
     flex: 1,
@@ -170,7 +179,7 @@ const styles = StyleSheet.create({
     marginLeft: -173, // la mitad del ancho del modal
     marginTop: -184, // la mitad de la altura del modal
     width: '87%',
-    height: '43%',
+    height: '50%',
     borderRadius: 10,
     padding: 20,
     elevation: 5,
